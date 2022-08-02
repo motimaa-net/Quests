@@ -209,8 +209,18 @@ public class QuestsPlaceholders extends PlaceholderExpansion implements Cacheabl
                                             case "progress":
                                             case "p":
                                                 final Object progress = qPlayer.getQuestProgressFile().getQuestProgress(quest).getTaskProgress(t[1]).getProgress();
+
                                                 result = (progress == null ? "0" : String.valueOf(progress));
                                                 break;
+                                            //Teippiplaceholder
+                                            case "maxprogress":
+                                                var task = quest.getTasks().stream().findFirst().get();
+                                                result = String.valueOf( (task.getConfigValue("amount") != null ?
+                                                        task.getConfigValue("amount") :
+                                                        task.getConfigValue("distance")
+                                                ));
+                                                break;
+
                                             case "completed":
                                             case "c":
                                                 result = String.valueOf(qPlayer.getQuestProgressFile().getQuestProgress(quest).getTaskProgress(t[1]).isCompleted() ? Messages.PLACEHOLDERAPI_TRUE.getMessageLegacyColor() : Messages.PLACEHOLDERAPI_FALSE.getMessageLegacyColor());
