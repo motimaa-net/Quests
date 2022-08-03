@@ -16,6 +16,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -65,18 +68,20 @@ public final class BrewingTaskType extends BukkitTaskType {
                 super.debug("Player brewed potion", quest.getId(), task.getId(), player.getUniqueId());
 
                 int progress = 0;
-
                 for (int i = 0; i < 3; i++) {
-                    if (event.getContents().getItem(i) != null) {
-                        progress = TaskUtils.incrementIntegerTaskProgress(taskProgress);
-                        super.debug("Incrementing task progress for brewed potion in slot " + i + " (now " + progress + ")", quest.getId(), task.getId(), player.getUniqueId());
+                    if (event.getResults().get(i) != null) {
+                        PotionMeta potionMeta = (PotionMeta) event.getResults().get(i).getItemMeta();
+                        if (potionMeta.getBasePotionData().getType() == PotionType.valueOf(String.valueOf(task.getConfigValue("data")))) {
+                            System.out.println("kyl " + potionMeta.getBasePotionData().getType() + " JA " + PotionType.valueOf(String.valueOf(task.getConfigValue("data"))));
+                            progress = TaskUtils.incrementIntegerTaskProgress(taskProgress);
+                            super.debug("Incrementing task progress for brewed potion in slot " + i + " (now " + progress + ")", quest.getId(), task.getId(), player.getUniqueId());
+                        }
                     } else {
                         super.debug("Slot " + i + " does not have a brewed potion", quest.getId(), task.getId(), player.getUniqueId());
                     }
                 }
 
                 int potionsNeeded = (int) task.getConfigValue("amount");
-
                 if (progress >= potionsNeeded) {
                     super.debug("Marking task as complete", quest.getId(), task.getId(), player.getUniqueId());
                     taskProgress.setCompleted(true);
