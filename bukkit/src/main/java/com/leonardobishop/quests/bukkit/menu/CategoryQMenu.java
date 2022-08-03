@@ -12,6 +12,7 @@ import com.leonardobishop.quests.bukkit.util.StringUtils;
 import com.leonardobishop.quests.bukkit.util.chat.Chat;
 import com.leonardobishop.quests.common.player.QPlayer;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -173,8 +174,8 @@ public class CategoryQMenu implements QMenu {
             } else if (element instanceof CustomMenuElement) {
                 CustomMenuElement customMenuElement = (CustomMenuElement) element;
                 for (String command : customMenuElement.getCommands()) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-                            command.replace("{player}", event.getWhoClicked().getName()));
+                    Player player = (Player) event.getWhoClicked();
+                    player.performCommand(command);
                 }
             }
         }
