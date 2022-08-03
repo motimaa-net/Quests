@@ -10,6 +10,7 @@ import com.leonardobishop.quests.common.player.QPlayer;
 import com.leonardobishop.quests.common.player.questprogressfile.QuestProgressFile;
 import com.leonardobishop.quests.common.quest.Category;
 import com.leonardobishop.quests.common.quest.Quest;
+import com.leonardobishop.quests.common.quest.Task;
 import me.clip.placeholderapi.expansion.Cacheable;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
@@ -220,7 +221,15 @@ public class QuestsPlaceholders extends PlaceholderExpansion implements Cacheabl
                                                         task.getConfigValue("distance")
                                                 ));
                                                 break;
-
+                                            case "maxprogressformatted":
+                                                final Object prog = qPlayer.getQuestProgressFile().getQuestProgress(quest).getTaskProgress(t[1]).getProgress();
+                                                result = (prog == null ? "0" : String.valueOf(prog)) + "/";
+                                                Task taskk = quest.getTasks().stream().findFirst().get();
+                                                result += String.valueOf( (taskk.getConfigValue("amount") != null ?
+                                                        taskk.getConfigValue("amount") :
+                                                        taskk.getConfigValue("distance")
+                                                ));
+                                                break;
                                             case "completed":
                                             case "c":
                                                 result = String.valueOf(qPlayer.getQuestProgressFile().getQuestProgress(quest).getTaskProgress(t[1]).isCompleted() ? Messages.PLACEHOLDERAPI_TRUE.getMessageLegacyColor() : Messages.PLACEHOLDERAPI_FALSE.getMessageLegacyColor());
