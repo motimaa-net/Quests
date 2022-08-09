@@ -221,14 +221,19 @@ public class QuestsPlaceholders extends PlaceholderExpansion implements Cacheabl
                                                         task.getConfigValue("distance")
                                                 ));
                                                 break;
+                                                //toinen teippiplaceholder
                                             case "maxprogressformatted":
-                                                final Object prog = qPlayer.getQuestProgressFile().getQuestProgress(quest).getTaskProgress(t[1]).getProgress();
-                                                result = (prog == null ? "0" : String.valueOf(prog)) + "/";
+                                                Object prog;
                                                 Task taskk = quest.getTasks().stream().findFirst().get();
-                                                result += String.valueOf( (taskk.getConfigValue("amount") != null ?
+                                                String max = String.valueOf( (taskk.getConfigValue("amount") != null ?
                                                         taskk.getConfigValue("amount") :
-                                                        taskk.getConfigValue("distance")
-                                                ));
+                                                        taskk.getConfigValue("distance")));
+                                                if (qPlayer.getQuestProgressFile().getQuestProgress(quest).isCompletedBefore()) {
+                                                    prog = max;
+                                                }else {
+                                                    prog = qPlayer.getQuestProgressFile().getQuestProgress(quest).getTaskProgress(t[1]).getProgress();
+                                                }
+                                                result = (prog == null ? "0" : String.valueOf(prog)) + "/" + max;
                                                 break;
                                             case "completed":
                                             case "c":
