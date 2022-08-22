@@ -70,14 +70,8 @@ dependencies {
     // MythicMobs 5
     compileOnly 'io.lumine:Mythic-Dist:5.0.3'
     // Citizens
-    compileOnly ('net.citizensnpcs:citizens:2.0.27-SNAPSHOT') {
-        exclude group: 'net.citizensnpcs', module: 'citizens-main'
-        exclude group: 'net.citizensnpcs', module: 'citizens-v1_8_R3'
-        exclude group: 'net.citizensnpcs', module: 'citizens-v1_12_R1'
-        exclude group: 'net.citizensnpcs', module: 'citizens-v1_13_R2'
-        exclude group: 'net.citizensnpcs', module: 'citizens-v1_14_R1'
-        exclude group: 'net.citizensnpcs', module: 'citizens-v1_15_R1'
-        exclude group: 'net.citizensnpcs', module: 'citizens-v1_16_R3'
+    compileOnly ('net.citizensnpcs:citizensapi:2.0.30-SNAPSHOT') {
+        transitive = false
     }
     // PlaceholderAPI
     compileOnly 'me.clip:placeholderapi:2.11.1'
@@ -86,7 +80,7 @@ dependencies {
         transitive = false
     }
     // ShopGUI+
-    compileOnly ('com.github.brcdev-minecraft:shopgui-api:master-SNAPSHOT') {
+    compileOnly ('com.github.brcdev-minecraft:shopgui-api:3.0.0') {
         transitive = false
     }
     // CoreProtect
@@ -96,7 +90,9 @@ dependencies {
     // JetBrains Annotations
     compileOnly 'org.jetbrains:annotations:23.0.0'
     // AuthLib
-    compileOnly 'com.mojang:authlib:1.5.21'
+    compileOnly ('com.mojang:authlib:1.5.21') {
+        transitive = false
+    }
     // FabledSkyblock
     compileOnly ('com.songoda:skyblock:2.2.13') {
         transitive = false
@@ -118,7 +114,7 @@ dependencies {
     // NuVotifier
     compileOnly "com.vexsoftware:NuVotifier:2.7.3"
     // SCore
-    compileOnly "com.github.Ssomar-Developement:SCore:main-SNAPSHOT"
+    compileOnly "com.github.Ssomar-Developement:SCore:v3.1.1"
     // bStats
     implementation 'org.bstats:bstats-bukkit-lite:1.8'
     // HikariCP

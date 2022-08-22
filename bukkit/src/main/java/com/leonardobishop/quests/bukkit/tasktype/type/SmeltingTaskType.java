@@ -40,7 +40,6 @@ public final class SmeltingTaskType extends BukkitTaskType {
         fixedQuestItemCache.clear();
     }
 
-    @SuppressWarnings("deprecation")
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onInventoryClick(InventoryClickEvent event) {
         ItemStack item = event.getCurrentItem();
@@ -51,6 +50,7 @@ public final class SmeltingTaskType extends BukkitTaskType {
                 || item == null || item.getType() == Material.AIR || event.getAction() == InventoryAction.NOTHING
                 || event.getAction() == InventoryAction.COLLECT_TO_CURSOR && cursor != null && cursor.getAmount() == cursor.getMaxStackSize()
                 || event.getClick() == ClickType.NUMBER_KEY && event.getAction() == InventoryAction.HOTBAR_MOVE_AND_READD
+                || event.getClick() == ClickType.DROP && event.getAction() == InventoryAction.DROP_ONE_SLOT && event.getCursor() != null
                 || !(event.getWhoClicked() instanceof Player player)) {
             return;
         }
